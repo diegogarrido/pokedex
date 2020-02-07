@@ -38,6 +38,30 @@ $(document).on("change","#per-page",function(){
     $(this).html()
 })
 
+$(document).on("click",".pokemon img",function(){
+    var pokemon = JSON.parse($(this).siblings()[0].value)
+    console.log(pokemon)
+    $("#details").children()[0].innerText = "ID: "+pokemon.id
+    $("#details").children()[1].src = pokemon.sprites.front_default
+    $("#details").children()[2].innerText = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)
+    $("#details").children()[3].innerText = "Types: "
+    for(var type of pokemon.types){
+        var name = type.type.name+" "
+        $("#details").children()[3].innerText += name.charAt(0).toUpperCase() + name.slice(1)
+    }
+    $("#details").children()[4].innerText = "Abilities: "
+    for(var ability of pokemon.abilities){
+        var name = ability.ability.name+" "
+        $("#details").children()[4].innerText += name.charAt(0).toUpperCase() + name.slice(1)
+    }
+    $("#stats").text("")
+    for(var status of pokemon.stats){
+        var name = status.stat.name
+        $("#stats").append("<p>"+name.charAt(0).toUpperCase() + name.slice(1)+": "+status.base_stat+"</p>")
+    }
+    $("#modal").fadeIn()
+})
+
 function fetchPokemons(){
     $("#container").text("")
     $("#loading").css("display","flex")
@@ -61,15 +85,11 @@ function fetchPokemon(url){
         if (this.readyState == 4 && this.status == 200) {
             var pokemon = JSON.parse(this.responseText)
             var output="<div class='pokemon'>"
-            output+="<p>ID: "+pokemon.id+"</p>"+
+            output+="<input type='hidden' value='"+this.responseText+"'/><br>"+
             "<img src='"+pokemon.sprites.front_default+"'>"
             var name = pokemon.name
-            output+="<p>"+name.charAt(0).toUpperCase() + name.slice(1)+"</p><p>"
-            for(var j=0;j<pokemon.types.length;j++){
-                var type= pokemon.types[j].type.name+" "
-                output += (type).charAt(0).toUpperCase() + type.slice(1)
-            }
-            output+="</p></div>"
+            output+="<p>"+name.charAt(0).toUpperCase() + name.slice(1)+"</p>"
+            output+="</div>"
             $("#container").append(output)
             $("#loading").css("display","none")
         }

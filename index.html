@@ -2,11 +2,25 @@
 <html>
     <head>
         <link rel="stylesheet" href="style.css">
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        <script type="text/javascript" src='http://code.jquery.com/jquery-1.10.2.min.js'></script>
         <script src="javascript.js"></script>
     </head>
     <body>
         <div id="container"></div>
+        <div id="modal">
+            <div id="details">
+                <p>ID:</p>
+                <img src="">
+                <p>name</p>
+                <p>Types:</p>
+                <p>Abilities:</p>
+                <p>Stats:</p>
+                <div id="stats">
+                    <p>stat1: </p><p>value1</p>
+                </div>
+                <button onclick="$('#modal').fadeOut()">OK!</button>
+            </div>
+        </div>
         <div id="loading"><p>Loading...</p></div>
         <div id="navigator">
             <button id="previous">←</button>
